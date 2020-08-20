@@ -78,16 +78,9 @@ $PROP = 'block';
 $PROP = 'none';
 	$OUT = 'none';
 }
-//$DATABASE_HOST = 'sql303.unaux.com';
-//$DATABASE_USER = 'unaux_24697656';
-//$DATABASE_PASS = 'tunganh2003';
-//$DATABASE_NAME = 'unaux_24697656_doantruong';
 
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'members';
-$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+
+require('require/serverconnect.php');
 if (mysqli_connect_errno()) {
 	die ('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
@@ -264,14 +257,35 @@ $query = "SELECT * FROM accounts WHERE username='".$usern."'";
 			if (mysqli_num_rows($results) !=0) {
 				while($row = mysqli_fetch_assoc($results)){
 					$login = 'block';
+					
 					if(@$_GET['id']){
 						$login = 'none';	
 					}
 					echo "<div style='display:$login'>";
 					echo "<div><img src='".$row["profile_pic"]."' width ='150' height='150' style='margin-bottom: 15px;float: left;   border-radius: 50%; margin-right: 25px'></div>";
-					echo "<h1 style='
-    margin-top: 0px;
-'>".$row["username"]."</h1>";
+					echo "<h1 style='margin-top: 0px;display:inline'>".$row["username"]." <i id='tunganh'  data-toggle='tooltip' title='Tài khoản đã xác minh' style='color:#07f;font-size:22px;display:none;display:inline' class='fas fa-check-circle'></i></h1>";
+					?>
+					<h4 id="xk" style="display: none;color: #989696">Xung kích</h4>
+					<h4 id="qtv" style="display: none;color: #989696">Quản trị viên</h4>
+					<script>
+						var veri = '<?php echo $row["verified"] ?>';
+						var perm = '<?php echo $row["permission"] ?>';
+						if (veri == 'yes'){
+							document.getElementById("tunganh").style.display = "inline";
+						} else {
+							document.getElementById("tunganh").style.display = "none";
+						}
+						if (perm == 'xungkich'){
+							document.getElementById("xk").style.display = "block";
+						}
+						if (perm == 'admin'){
+							document.getElementById("qtv").style.display = "block";
+						}
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+					<?php
 					
 					echo "<tr style='display:$login'><td>Họ và tên :</td> <td>".$row["name"]."</td>";
 					echo "<tr style='display:$login'><td>Ngày tham gia :</td> <td>".$row["date"]."</td>";
@@ -318,8 +332,29 @@ if(@$_GET['id']){
 					echo "<div><img src='".$row["profile_pic"]."' width ='150' height='150' style='margin-bottom: 15px;float: left;   border-radius: 50%; margin-right: 25px'></div>";
 					echo "<h1 style='
     margin-top: 0px;
-'>".$row["username"]."</h1>";
-					
+'>".$row["username"]." <i id='tunganh2'  data-toggle='tooltip' title='Tài khoản đã xác minh' style='color:#07f;font-size:22px;display:none;display:inline' class='fas fa-check-circle'></i></h1>";
+?>
+<h4 id="xk2" style="display: none;color: #989696">Xung kích</h4>
+					<h4 id="qtv2" style="display: none;color: #989696">Quản trị viên</h4>
+<script>
+	var perm = '<?php echo $row['permission'] ?>';
+	var veri2 = '<?php echo $row["verified"] ?>';
+	if (veri2 == 'yes'){
+							document.getElementById("tunganh2").style.display = "inline";
+						} else {
+							document.getElementById("tunganh2").style.display = "none";
+						}
+	if (perm == 'xungkich'){
+							document.getElementById("xk2").style.display = "block";
+						}
+						if (perm == 'admin'){
+							document.getElementById("qtv2").style.display = "block";
+						}
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+<?php
 					echo "<tr><td>Họ và tên :</td> <td>".$row["name"]."</td>";
 					echo "<tr><td>Ngày tham gia :</td> <td>".$row["date"]."</td>";
 					echo "<tr><td>ID : </td><td>".$row["id"]."</td>";

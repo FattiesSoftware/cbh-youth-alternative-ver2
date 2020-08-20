@@ -1,0 +1,616 @@
+<!-- Trang web được lập trình bởi Dương Tùng Anh - C4K60 Chuyên Hà Nam -->
+<!-- Mọi thông tin chi tiết xin liên hệ https://facebook.com/tunnaduong/ -->
+<head>
+  <title>Trắc nghiệm về chỉ số tâm trạng - Version 2.0</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/5468db3c8c.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+  <style>
+    body {
+      background: rgb(53,95,103);
+background: linear-gradient(133deg, rgba(53,95,103,1) 0%, rgba(226,107,38,1) 53%);
+      /* background: rgb(0,212,255);
+      background: linear-gradient(133deg, rgba(0,212,255,1) 0%, rgba(191,141,207,1) 90%); */
+    }
+body {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+.txts {
+ text-align: center;
+  
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  animation: gradient 15s ease infinite;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+    .mainDiv {
+        background: #fff;
+        border-radius: 10px;
+        width: 420px;
+        margin:0px auto;
+        padding: 10px 10px 10px 10px;
+        margin-top: 10px;
+        -webkit-box-shadow: 0 5px 13px 13px rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar-box {
+  max-height: 120px;
+  position: relative;
+  overflow: hidden;
+}
+.main{
+  color: white;
+}
+.sidebar-box .read-more { 
+  position: absolute; 
+  bottom: 0; 
+  left: 0;
+  width: 100%; 
+  text-align: center; 
+  margin: 0; padding: 30px 0; 
+  
+  /* "transparent" only works here because == rgba(0,0,0,0) */
+  background-image: linear-gradient(to bottom, transparent, white);
+}
+.sk-folding-cube {
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1); 
+}
+.sk-folding-cube .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+          animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+          transform-origin: 100% 100%;
+}
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+          transform: scale(1.1) rotateZ(90deg);
+}
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+          transform: scale(1.1) rotateZ(180deg);
+}
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+          transform: scale(1.1) rotateZ(270deg);
+}
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s; 
+}
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+          animation-delay: 0.9s;
+}
+@-webkit-keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  } 
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  }
+}
+.sk-folding-cube {
+   width: 80px;
+    height: 80px;
+}
+@media (max-width:375px) {
+  .mainDiv{
+    margin-left: -22;
+    margin-top: -30;
+  }
+
+}
+  </style>
+
+</head>
+<body>
+
+  <div class="mainDiv" style="transform: scale(0.9, 0.9);" id="mainDiv">
+<div class="loadd" style="display: none;margin-top: 100px;margin-bottom: 100px;" id="concu">
+
+<div class="sk-folding-cube">
+  <div class="sk-cube1 sk-cube"></div>
+  <div class="sk-cube2 sk-cube"></div>
+  <div class="sk-cube4 sk-cube"></div>
+  <div class="sk-cube3 sk-cube"></div>
+</div>
+<br>
+<center>
+<h4>Bám chắc nhé! Đang tải trắc nghiệm...</h4>
+<h6><i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by Dương Tùng Anh</h6>
+</center>
+</div>
+<div class="ready" style="display: none;" id="ready">
+  <center>
+  <h4 style="margin-top: 180px;">SẴN SÀNG!</h4>
+</center>
+  </div>
+
+    <div class="insidemainDiv" id="insidemainDiv" style="display: block;">
+    <img src="depress_heal.jpg" style="width: 400px;border-radius: 8px;">
+    <h3 style="margin-top: 15px;font-size: 25px;"><b>Khảo sát phát hiện sớm dấu hiệu trầm cảm</b></h3>
+    <div class="sidebar-box">
+    <p>
+Hiện nay, nhiều bệnh tâm thần đã được chữa khỏi nếu được phát hiện
+sớm và điều trị hợp lý kịp thời. Chăm sóc sức khỏe tâm thần là nâng tầm
+chất lượng sống và cảm xúc là một phần quan trọng không thể thiếu của
+sức khỏe tâm thần.</p>
+<p class="read-more" style="display: none;"><a href="#" class="button"><button type="button" class="btn btn-info" style="opacity: 0.5;">Xem thêm...</button></a></p>
+</div>
+
+<hr>
+<h5><b>Thông tin về trắc nghiệm</b></h5>
+<p style="display: inline;"><i class="fas fa-user-edit"></i> Người tạo: </p><p id="complete" style="display: inline;">Trung tâm CSSK tâm thần cộng đồng</p>
+<br>
+<p style="display: inline;"><i class="fas fa-clock"></i> Thời gian dự tính: </p><p id="complete" style="display: inline;">3 phút</p>
+<br>
+<p style="display: inline;"><i class="fas fa-user-check"></i> Lượt hoàn thành: </p><p id="complete" style="display: inline;">23</p>
+<br>
+
+<a href="#" class="txts" style="float: right;font-size: 20px;color: #e26b26;" onclick="mainFade()"><b>Làm trắc nghiệm ></b></a>
+<br>
+</div>
+</div>
+<script>
+  var $el, $ps, $up, totalHeight;
+
+$(".sidebar-box .button").click(function() {
+      
+  totalHeight = 0
+
+  $el = $(this);
+  $p  = $el.parent();
+  $up = $p.parent();
+  $ps = $up.find("p:not('.read-more')");
+  
+  // measure how tall inside should be by adding together heights of all inside paragraphs (except read-more paragraph)
+  $ps.each(function() {
+    totalHeight += $(this).outerHeight();
+  });
+        
+  $up
+    .css({
+      // Set height to prevent instant jumpdown when max height is removed
+      "height": $up.height(),
+      "max-height": 9999
+    })
+    .animate({
+      "height": totalHeight
+    });
+  
+  // fade out read-more
+  $p.fadeOut();
+  
+  // prevent jump-down
+  return false;
+    
+});
+
+function mainFade(){
+const element =  document.querySelector('.insidemainDiv')
+element.classList.add('animated', 'fadeOut', 'faster')
+element.addEventListener('animationend', function() { loadd() })
+setTimeout(hideDiv, 550)
+return true;
+function hideDiv(){
+  document.getElementById("insidemainDiv").style.display = 'none';
+}
+}
+
+
+function loadd(){
+document.getElementById("concu").style.display = 'block';
+const element =  document.querySelector('.loadd')
+element.classList.add('animated', 'fadeInDown')
+element.addEventListener('animationend', function() { setTimeout(loadBounce, 2050) })
+}
+
+
+function loadBounce(){
+const element =  document.querySelector('.loadd')
+element.classList.remove('fadeInDown')
+element.classList.add('bounceOut')
+element.addEventListener('animationend', function() { ready() })
+}
+
+function ready(){
+    document.getElementById("mainDiv").style.width = '420px';
+  document.getElementById("mainDiv").style.height = '427px';
+  document.getElementById("concu").style.display = 'none';
+document.getElementById("ready").style.display = 'block';
+const element =  document.querySelector('.ready')
+element.classList.add('animated', 'bounceIn')
+element.addEventListener('animationend', function() { endLoad() })
+}
+
+function endLoad(){
+  document.getElementById("mainDiv").style.display = 'block';
+  document.getElementById("mainDiv").style.width = '420px';
+  document.getElementById("mainDiv").style.height = '427px';
+  const element =  document.querySelector('.mainDiv')
+  setTimeout(finalEnd, 1550)
+  function finalEnd(){
+element.classList.add('animated' , 'fadeOut', 'faster')
+element.addEventListener('animationend', function() { warmup() })
+}
+}
+
+function warmup(){
+  document.getElementById("mainDiv").style.display = 'none';
+document.getElementById("warmup").style.display = 'block';
+document.getElementById("truoc").style.display = 'block';
+const element =  document.querySelector('.warmup')
+element.classList.add('animated', 'fadeInDown')
+element.addEventListener('animationend', function() { warmup2() })
+function warmup2(){
+  document.getElementById("sau").style.display = 'block';
+const element =  document.querySelector('.warmup2')
+element.classList.add('animated', 'fadeInDown')
+element.addEventListener('animationend', function() { setTimeout(fadeWarm, 2050) })
+}
+function fadeWarm(){
+const element =  document.querySelector('.warmup3')
+element.classList.add('animated', 'fadeOutDown')
+element.addEventListener('animationend', function() { askName() })
+  }
+}
+
+function askName(){
+document.getElementById("warmup").style.display = 'none';
+document.getElementById("askName").style.display = 'block';
+document.getElementById("tenban").style.display = 'block';
+const element =  document.querySelector('.name')
+element.classList.add('animated', 'fadeInDown')
+}
+
+function sex(){
+const element =  document.querySelector('.name')
+element.classList.remove('fadeInDown')
+element.classList.add('animated', 'fadeOutDown')
+element.addEventListener('animationend', function() { document.getElementById("tenban").style.display = 'none'; askSex() })
+  function askSex(){
+    document.getElementById("gioitinh").style.display = 'block';
+    document.getElementById("progressbar").innerHTML = "40%";
+    document.getElementById("progressbar").style.width = '40%';
+const element =  document.querySelector('.sex')
+element.classList.add('animated', 'fadeInDown')
+  }
+}
+
+function age(){
+  const element =  document.querySelector('.sex')
+element.classList.remove('animated', 'fadeInDown')
+element.classList.add('animated', 'fadeOutDown')
+element.addEventListener('animationend', function() { document.getElementById("gioitinh").style.display = 'none'; askAge() })
+  function askAge(){
+document.getElementById("tuoi").style.display = 'block';
+document.getElementById("progressbar").innerHTML = "70%";
+    document.getElementById("progressbar").style.width = '70%';
+const element =  document.querySelector('.age')
+element.classList.add('animated', 'fadeInDown')
+}
+}
+
+function thongbao(){
+  const element =  document.querySelector('.age')
+element.classList.remove('animated', 'fadeInDown')
+element.classList.add('animated', 'fadeOutDown')
+element.addEventListener('animationend', function() { document.getElementById("tuoi").style.display = 'none'; document.getElementById("progressbar").innerHTML = "100%";
+document.getElementById("progressbar").style.width = '100%';loadProgress() ; setTimeout(anProgress, 2050) })
+ function loadProgress(){
+  const element =  document.querySelector('.pgb2')
+element.classList.add('progress-bar-striped', 'progress-bar-animated')
+ }
+ function anProgress(){
+const element =  document.querySelector('.pgb')
+element.classList.add('animated', 'fadeOutUp')
+element.addEventListener('animationend', function() { document.getElementById("pgb-main").style.display = 'none';hienThongbao() })
+ }
+function hienThongbao(){
+document.getElementById("thongbao-done").style.display = 'block';
+document.getElementById("thongbao-truoc").style.display = 'block';
+const element =  document.querySelector('.done')
+element.classList.add('animated', 'fadeInDown')
+element.addEventListener('animationend', function() { hienThongbao2() })
+}
+function hienThongbao2(){
+  document.getElementById("thongbao-sau").style.display = 'block';
+const element =  document.querySelector('.done2')
+element.classList.add('animated', 'fadeInDown')
+element.addEventListener('animationend', function() { setTimeout(fadeThongbao, 2050) })
+}
+function fadeThongbao(){
+const element =  document.querySelector('.done3')
+element.classList.add('animated', 'fadeOutDown')
+element.addEventListener('animationend', function() { question1() })
+  }
+
+}
+
+</script>
+<style>
+  .but:link, .but:visited {
+  background-color: #ffffff;
+  color: black;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.but:hover, .but:active {
+  background-color: white;
+}
+
+.segmented-control {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+}
+
+.segmented-control input[type='radio'] {
+  position: absolute;
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+}
+
+.segmented-control label {
+  flex: 1 0 auto;
+  text-align: center;
+  margin: 0;
+  padding: .5rem 1rem;
+  border-right: 1px solid #ffffff;
+  cursor: pointer;
+  font-family: Helvetica, Arial, Sans serif;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.segmented-control label:last-child {
+  border: none;
+}
+
+.segmented-control input[type='radio']:checked + label,
+  .segmented-control input[type='radio']:focus + label {
+  background-color: #ffffff;
+  color: black;
+}
+#textin, #submit {
+    display: block;
+    margin: 10px auto;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#textin {
+    line-height: 30px;
+    font-weight: 600;
+    width: 90%;
+}
+
+#submit {
+    padding: 5px 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#textout {
+    text-align: center ;
+    color: #fff;
+    font-weight: 600;
+    // padding-left: 20px;
+    font-size: 1.5em;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #bbb;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #bbb;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #bbb;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #bbb;
+}
+
+</style>
+<div class="warmup3" id="warmup" style="display: none;">
+  <center>
+<h3 class="main warmup" id="truoc" style="display: none;margin-top: 50px;">Trước khi bắt đầu,</h3>
+<h3 class="main warmup2" id="sau" style="display: none;">chúng tôi muốn biết một vài thông tin cá nhân của bạn.</h3>
+</center>
+</div>
+
+<div id="askName" style="display: none;">
+    <div class="progress pgb" id="pgb-main">
+    <div class="progress-bar bg-success pgb2" style="width:10%" id="progressbar">10%</div>
+    </div>
+  <center>
+    
+
+    <div id="tenban" style="display: none;width: 380px;">
+    <h3 class="main name" style="margin-top: 50px;">Uhmm....Bạn tên là gì nhỉ?</h3>
+    <input class="form-control form-control-lg name2" type="text" placeholder="VD: Dương Tùng Anh">
+    <form id="form1">
+                <input type="text" id="textin" placeholder="Input (shaking effect if empty)">
+                <input type="submit" value="Send" id="submit">
+            </form>
+    <br>
+    <a class="but" href="javascript:sex()">Tiếp tục <i class="fas fa-chevron-right"></i></a>
+    </div>
+    <div id="gioitinh" style="display: none;width: 380px;">
+    <h3 class="main sex" style="margin-top: 50px;">OK, thế còn giới tính của bạn thì sao?</h3>
+<form action="#">
+  <div class="segmented-control">
+    <input type="radio" name="sex" id="male" value="male" />
+    <label for="male">Nam</label>
+    <input type="radio" name="sex" id="female" value="female" />
+    <label for="female">Nữ</label>
+    <input type="radio" name="sex" id="other" value="other" />
+    <label for="other">Khác</label>
+    <input type="radio" name="sex" id="rathernotsay" value="rathernotsay" />
+    <label for="rathernotsay">Không muốn nói</label>
+  </div>
+</form>
+    <br>
+    <a class="but" href="javascript:age()">Tiếp tục <i class="fas fa-chevron-right"></i></a>
+    </div>
+    <div id="tuoi" style="display: none;width: 380px;">
+    <h3 class="main age" style="margin-top: 50px;">Được rồi, câu hỏi cuối cùng này... Bạn hiện nay bao nhiêu tuổi?</h3>
+    <input class="form-control form-control-lg name2" type="text" placeholder="VD: 17" id="intLimitTextBox">
+    <br>
+    <a class="but" href="javascript:thongbao()">Tiếp tục <i class="fas fa-chevron-right"></i></a>
+    </div>
+  </center>
+</div>
+<div class="done3" id="thongbao-done" style="display: none;">
+  <center>
+<h3 class="main done" id="thongbao-truoc" style="display: none;margin-top: 50px;">Thật tốt khi được hiểu thêm về bạn,</h3>
+<h3 class="main done2" id="thongbao-sau" style="display: none;">giờ chúng ta hãy cùng bắt đầu trắc nghiệm nào...</h3>
+</center>
+</div>
+<script>
+  // Restricts input for the given textbox to the given inputFilter function.
+function setInputFilter(textbox, inputFilter) {
+  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+    textbox.addEventListener(event, function() {
+      if (inputFilter(this.value)) {
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        this.value = "";
+      }
+    });
+  });
+}
+setInputFilter(document.getElementById("intLimitTextBox"), function(value) {
+  return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 123); });
+
+
+window.onload= function(){
+    var textIn = document.getElementById('textin');
+    var textOut = document.getElementById('textout');
+    
+    document.getElementById('form1').addEventListener('submit', function(evt){
+        evt.preventDefault();
+        var textInValue = textIn.value;
+       if(isEmpty(textInValue)) {
+           textIn.className = "animated shake";
+           setTimeout(function() { removeAnimatedClass(textIn); }, 1000);
+           textOut.innerText = "Output: <CANNOT BE EMPTIED>";
+       }
+       else {
+           textOut.innerText = "Output: " + textInValue;
+           textOut.className = "animated rotateIn";
+           setTimeout(function() { removeAnimatedClass(textOut); }, 1000);
+           textIn.value = "";
+       }
+       
+    });
+
+    function isEmpty(str) {
+        return (!str || 0 === str.length);
+    }
+    
+    function removeAnimatedClass(ele) {
+        ele.className = "";
+    }
+
+
+}
+
+</script>
+</body>

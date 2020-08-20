@@ -1,0 +1,823 @@
+<head>
+	<title>Trắc nghiệm về chỉ số tâm trạng</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/5468db3c8c.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+  <style>
+  	body {
+  font-family: "Roboto", sans-serif;
+}
+.radio {
+  position: relative;
+  cursor: pointer;
+  line-height: 20px;
+  font-size: 14px;
+  margin: 15px;
+}
+.radio .label {
+  position: relative;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #c8ccd4;
+  border-radius: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+.radio .label:after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background: #225cff;
+  transform: scale(0);
+  transition: all 0.2s ease;
+  opacity: 0.08;
+  pointer-events: none;
+}
+.radio:hover .label:after {
+  transform: scale(3.6);
+}
+input[type="radio"]:checked + .label {
+  border-color: #225cff;
+}
+input[type="radio"]:checked + .label:after {
+  transform: scale(1);
+  transition: all 0.2s cubic-bezier(0.35, 0.9, 0.4, 0.9);
+  opacity: 1;
+}
+.cntr {
+  position: absolute;
+  top: calc(50% - 10px);
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+.credit {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  transition: all 0.2s ease;
+  -webkit-user-select: none;
+  user-select: none;
+  opacity: 0.6;
+}
+.credit img {
+  width: 72px;
+}
+.credit:hover {
+  transform: scale(0.95);
+}
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+.sk-folding-cube {
+  margin: 20px auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1); 
+}
+.sk-folding-cube .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+          animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+          transform-origin: 100% 100%;
+}
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+          transform: scale(1.1) rotateZ(90deg);
+}
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+          transform: scale(1.1) rotateZ(180deg);
+}
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+          transform: scale(1.1) rotateZ(270deg);
+}
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s; 
+}
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+          animation-delay: 0.9s;
+}
+@-webkit-keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  } 
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+            transform: perspective(140px) rotateX(-180deg);
+    opacity: 0; 
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+            transform: perspective(140px) rotateX(0deg);
+    opacity: 1; 
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+            transform: perspective(140px) rotateY(180deg);
+    opacity: 0; 
+  }
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.sk-folding-cube {
+   width: 80px;
+    height: 80px;
+}
+  </style>
+</head>
+<body style="
+    margin-left: 40px;
+    margin-right: 40px;
+">
+<img src="depress.jpg" style="visibility: hidden;z-index:100; position: fixed;">
+<div class="center" style="display: block;" id="concu">
+
+<div class="sk-folding-cube">
+  <div class="sk-cube1 sk-cube"></div>
+  <div class="sk-cube2 sk-cube"></div>
+  <div class="sk-cube4 sk-cube"></div>
+  <div class="sk-cube3 sk-cube"></div>
+</div>
+<br>
+<center>
+<h4>Bám chắc nhé! Đang tải trắc nghiệm...</h4>
+</center>
+</div>
+<div class="center" style="display: none;" id="ready">
+  <h4>SẴN SÀNG!</h4>
+  </div>
+  <div style="position: absolute; bottom: 0;" id="foter">
+
+<center>
+    <div class="container">
+    <div class="column">
+        <p>&copy; Phòng mạch An Sinh</p>
+    </div>
+
+    <div class="column">
+        <p id="demo"></p>
+    </div>
+
+     <div class="column">
+        <p> Được thiết kế và phát triển với một <i class="fas fa-heart"></i> đặc biệt bởi <a href="https://facebook.com/tunnaduong/">Dương Tùng Anh</a></p>
+</div>
+<style>
+.column {    
+    display: inline-block;
+}
+</style>
+</div>
+
+</center>
+  </div>
+<script>
+  setTimeout(done, 3000);
+  function done() {
+    document.getElementById("concu").style.display = 'none';
+    document.getElementById("ready").style.display = 'block';
+    setTimeout(done2, 1000);
+  }
+  function done2() {
+    document.getElementById("ready").style.display = 'none';
+    document.getElementById("foter").style.display = 'none';
+    document.getElementById("bodymain").style.display = 'block';
+  }
+
+</script>
+<div style="display: none;" id="bodymain">
+	<h1><b>Trắc nghiệm về chỉ số tâm trạng</b></h1>
+	<h3>Trong 1 tuần lễ trở lại đây (gồm ngày hôm nay), xin bạn hãy trả lời các câu hỏi sau đây, và chọn đáp án mà bạn cảm thấy thích hợp với tâm trạng của bạn nhất.</h3>
+	<p style="color: red;">
+		*Vui lòng đánh dấu đầy đủ vào các ô của các câu hỏi từ 1 đến 6
+	</p>
+	<table class="table" style="
+    margin-bottom: 0px;
+">
+		<thead>
+		<tr>
+			<th></th>
+			<th>Hoàn toàn không có</th>
+			<th>Có chút ít</th>
+			<th>Mức độ trung bình</th>
+			<th>Mức độ nghiêm trọng	</th>
+			<th>Mức độ vô cùng nghiêm trọng</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+    <td>1. Cảm giác căng thẳng thấp thỏm không yên</td>
+    <td><label for="q1p0" class="radio">
+    <input type="radio" name="q1" id="q1p0" value="0" class="hidden"/>
+    <span class="label"></span>0 điểm
+  </label></td>
+    <td><label for="q1p1" class="radio">
+    <input type="radio" name="q1" id="q1p1" value="1" class="hidden"/>
+    <span class="label"></span>1 điểm
+  </label></td>
+    <td><label for="q1p2" class="radio">
+    <input type="radio" name="q1" id="q1p2" value="2" class="hidden"/>
+    <span class="label"></span>2 điểm
+  </label></td>
+    <td><label for="q1p3" class="radio">
+    <input type="radio" name="q1" id="q1p3" value="3" class="hidden"/>
+    <span class="label"></span>3 điểm
+  </label></td>
+    <td><label for="q1p4" class="radio">
+    <input type="radio" name="q1" id="q1p4" value="4" class="hidden"/>
+    <span class="label"></span>4 điểm
+  </label></td>
+  </tr>
+  <tr>
+    <td>2. Cảm giác dễ phiền muộn hoặc tức giận</td>
+    <td><label for="q2p0" class="radio">
+    <input type="radio" name="q2" id="q2p0" value="0" class="hidden"/>
+    <span class="label"></span>0 điểm
+  </label></td>
+    <td><label for="q2p1" class="radio">
+    <input type="radio" name="q2" id="q2p1" value="1" class="hidden"/>
+    <span class="label"></span>1 điểm
+  </label></td>
+    <td><label for="q2p2" class="radio">
+    <input type="radio" name="q2" id="q2p2" value="2" class="hidden"/>
+    <span class="label"></span>2 điểm
+  </label></td>
+    <td><label for="q2p3" class="radio">
+    <input type="radio" name="q2" id="q2p3" value="3" class="hidden"/>
+    <span class="label"></span>3 điểm
+  </label></td>
+    <td><label for="q2p4" class="radio">
+    <input type="radio" name="q2" id="q2p4" value="4" class="hidden"/>
+    <span class="label"></span>4 điểm
+  </label></td>
+  </tr>
+  <tr>
+    <td>3. Cảm giác trầm uất, tâm trạng chán nản</td>
+    <td><label for="q3p0" class="radio">
+    <input type="radio" name="q3" id="q3p0" value="0" class="hidden"/>
+    <span class="label"></span>0 điểm
+  </label></td>
+    <td><label for="q3p1" class="radio">
+    <input type="radio" name="q3" id="q3p1" value="1" class="hidden"/>
+    <span class="label"></span>1 điểm
+  </label></td>
+    <td><label for="q3p2" class="radio">
+    <input type="radio" name="q3" id="q3p2" value="2" class="hidden"/>
+    <span class="label"></span>2 điểm
+  </label></td>
+    <td><label for="q3p3" class="radio">
+    <input type="radio" name="q3" id="q3p3" value="3" class="hidden"/>
+    <span class="label"></span>3 điểm
+  </label></td>
+    <td><label for="q3p4" class="radio">
+    <input type="radio" name="q3" id="q3p4" value="4" class="hidden"/>
+    <span class="label"></span>4 điểm
+  </label></td>
+  </tr>
+    <tr>
+    <td>4. Cảm thấy kém cỏi so với người khác</td>
+    <td><label for="q4p0" class="radio">
+    <input type="radio" name="q4" id="q4p0" value="0" class="hidden"/>
+    <span class="label"></span>0 điểm
+  </label></td>
+    <td><label for="q4p1" class="radio">
+    <input type="radio" name="q4" id="q4p1" value="1" class="hidden"/>
+    <span class="label"></span>1 điểm
+  </label></td>
+    <td><label for="q4p2" class="radio">
+    <input type="radio" name="q4" id="q4p2" value="2" class="hidden"/>
+    <span class="label"></span>2 điểm
+  </label></td>
+    <td><label for="q4p3" class="radio">
+    <input type="radio" name="q4" id="q4p3" value="3" class="hidden"/>
+    <span class="label"></span>3 điểm
+  </label></td>
+    <td><label for="q4p4" class="radio">
+    <input type="radio" name="q4" id="q4p4" value="4" class="hidden"/>
+    <span class="label"></span>4 điểm
+  </label></td>
+  </tr>
+  <tr>
+    <td style="
+    width: 379px;
+">5. Khó khăn về giấc ngủ như: mất ngủ, dễ bị tỉnh giấc hoặc dậy sớm</td>
+    <td><label for="q5p0" class="radio">
+    <input type="radio" name="q5" id="q5p0" value="0" class="hidden"/>
+    <span class="label"></span>0 điểm
+  </label></td>
+    <td><label for="q5p1" class="radio">
+    <input type="radio" name="q5" id="q5p1" value="1" class="hidden"/>
+    <span class="label"></span>1 điểm
+  </label></td>
+    <td><label for="q5p2" class="radio">
+    <input type="radio" name="q5" id="q5p2" value="2" class="hidden"/>
+    <span class="label"></span>2 điểm
+  </label></td>
+    <td><label for="q5p3" class="radio">
+    <input type="radio" name="q5" id="q5p3" value="3" class="hidden"/>
+    <span class="label"></span>3 điểm
+  </label></td>
+    <td><label for="q5p4" class="radio">
+    <input type="radio" name="q5" id="q5p4" value="4" class="hidden"/>
+    <span class="label"></span>4 điểm
+  </label></td>
+  </tr>
+   <tr>
+    <td>6. Có ý nghĩ chán sống, muốn chết</td>
+    <td><label for="q6p0" class="radio">
+    <input type="radio" name="q6" id="q6p0" value="0" class="hidden"/>
+    <span class="label"></span>0 điểm
+  </label></td>
+    <td><label for="q6p1" class="radio">
+    <input type="radio" name="q6" id="q6p1" value="1" class="hidden"/>
+    <span class="label"></span>1 điểm
+  </label></td>
+    <td><label for="q6p2" class="radio">
+    <input type="radio" name="q6" id="q6p2" value="2" class="hidden"/>
+    <span class="label"></span>2 điểm
+  </label></td>
+    <td><label for="q6p3" class="radio">
+    <input type="radio" name="q6" id="q6p3" value="3" class="hidden"/>
+    <span class="label"></span>3 điểm
+  </label></td>
+    <td><label for="q6p4" class="radio">
+    <input type="radio" name="q6" id="q6p4" value="4" class="hidden"/>
+    <span class="label"></span>4 điểm
+  </label></td>
+  </tr>
+  </tbody>
+	</table>
+	<button type="button" onclick="display()" class="btn btn-info"><i class="fas fa-check-circle"></i> Xem lời khuyên</button>
+	<br>
+  <h3 id="dispTitle"></h3>
+<div id="disp" style= 
+        " font-size:18px; font-weight:bold;"> 
+    </div>  
+    <div id="disp2" style= 
+        "font-size:18px; font-weight:bold;"> 
+    </div> 
+<div id="disp3" style= 
+        "font-size:18px; font-weight:bold;"> 
+    </div> 
+    <div id="disp4" style= 
+        "font-size:18px; font-weight:bold;"> 
+    </div> 
+<div id="disp5" style= 
+        "font-size:18px; font-weight:bold;"> 
+    </div> 
+    <div id="dispTotal" style= 
+        "color:green; font-size:18px; font-weight:bold;"> 
+    </div> 
+    <div id="disp6" style= 
+        "color:red; font-size:18px; font-weight:bold;"> 
+    </div> 
+    <h3 id="dispTitle2"></h3>
+    <div style="display: none;" id="dispGrade">
+    <h4><b>0 - 5 điểm</b></h4><p>Bạn không có biểu hiện của bệnh, có khả năng thích nghi của cơ thể và tinh thần tốt.</p>
+    <h4><b>6 - 9 điểm</b></h4><p>Tâm trạng của bạn có một chút căng thẳng, nên tìm người nhà hoặc bạn bè để bày tỏ tâm trạng của mình.</p>
+    <h4><b>10 - 14 điểm</b></h4><p>Tâm trạng của bạn căng thẳng ở mức độ trung bình, nên tư vấn về tâm lý hoặc tư vấn chuyên khoa tâm thần.</p>
+    <h4><b>15 điểm trở lên</b></h4><p>Bạn có biểu hiện của bệnh về tâm lý, tâm thần. Tâm trạng căng thẳng ở mức độ nghiêm trọng, cần được quan tâm nhiều hơn, nên tư vấn hoặc đi khám chuyên khoa tâm thần.</p>
+    <h4><b>Câu 6: 2 điểm trở lên</b></h4><p>Bạn nên liên hệ bác sĩ chuyên khoa tâm thần hoặc gọi ngay đến đường dây 24 giờ: <a href="tel:+84367862328">0367862328</a> để được an ủi động viên và giúp đỡ</p>
+  </div>
+
+	<script> 
+        function display() {  
+          document.getElementById("dispTitle").innerHTML 
+                    = "Kết quả trắc nghiệm:";  
+          document.getElementById("dispGrade").style.display = 'block';
+        	// Câu 1
+            if(document.getElementById('q1p0').checked) { 
+                document.getElementById("disp").innerHTML 
+                    = "Câu 1: " + document.getElementById("q1p0").value 
+                    + " điểm"; 
+                    var cau1 = document.getElementById("q1p0").value;
+                    var integer1 = parseInt(cau1, 10);
+                    
+            } 
+            else if(document.getElementById('q1p1').checked) { 
+                document.getElementById("disp").innerHTML 
+                    = "Câu 1: " + document.getElementById("q1p1").value 
+                    + " điểm";   
+                    var cau1 = document.getElementById("q1p1").value;
+                    var integer1 = parseInt(cau1, 10);
+                    
+            } 
+            else if(document.getElementById('q1p2').checked) { 
+                document.getElementById("disp").innerHTML 
+                    = "Câu 1: " + document.getElementById("q1p2").value 
+                    + " điểm";   
+                    var cau1 = document.getElementById("q1p2").value;
+                    var integer1 = parseInt(cau1, 10);
+                    
+            } 
+            else if(document.getElementById('q1p3').checked) { 
+                document.getElementById("disp").innerHTML 
+                    = "Câu 1: " + document.getElementById("q1p3").value 
+                    + " điểm";   
+                    var cau1 = document.getElementById("q1p3").value;
+                    var integer1 = parseInt(cau1, 10);
+                    
+            } 
+            else if(document.getElementById('q1p4').checked) { 
+                document.getElementById("disp").innerHTML 
+                    = "Câu 1: " + document.getElementById("q1p4").value 
+                    + " điểm";   
+                    var cau1 = document.getElementById("q1p4").value;
+                    var integer1 = parseInt(cau1, 10);
+                    
+            } 
+            else { 
+                document.getElementById("disp").innerHTML 
+                    = "Câu 1: Bạn chưa đánh dấu lựa chọn nào!";  
+                        
+            } 
+            // Câu 2
+            if(document.getElementById('q2p0').checked) { 
+                document.getElementById("disp2").innerHTML 
+                    = "Câu 2: " + document.getElementById("q2p0").value 
+                    + " điểm"; 
+                    var cau2 = document.getElementById("q2p0").value;
+                    var integer2 = parseInt(cau2, 10);
+                    
+            } 
+            else if(document.getElementById('q2p1').checked) { 
+                document.getElementById("disp2").innerHTML 
+                    = "Câu 2: " + document.getElementById("q2p1").value 
+                    + " điểm";   
+                     var cau2 = document.getElementById("q2p1").value;
+                     var integer2 = parseInt(cau2, 10);
+                     
+            } 
+            else if(document.getElementById('q2p2').checked) { 
+                document.getElementById("disp2").innerHTML 
+                    = "Câu 2: " + document.getElementById("q2p2").value 
+                    + " điểm";   
+                     var cau2 = document.getElementById("q2p2").value;
+                     var integer2 = parseInt(cau2, 10);
+                     
+            } 
+            else if(document.getElementById('q2p3').checked) { 
+                document.getElementById("disp2").innerHTML 
+                    = "Câu 2: " + document.getElementById("q2p3").value 
+                    + " điểm";   
+                     var cau2 = document.getElementById("q2p3").value;
+                     var integer2 = parseInt(cau2, 10);
+                     
+            } 
+            else if(document.getElementById('q2p4').checked) { 
+                document.getElementById("disp2").innerHTML 
+                    = "Câu 2: " + document.getElementById("q2p4").value 
+                    + " điểm";   
+                     var cau2 = document.getElementById("q2p4").value;
+                     var integer2 = parseInt(cau2, 10);
+                     
+            } 
+            else { 
+                document.getElementById("disp2").innerHTML 
+                    = "Câu 2: Bạn chưa đánh dấu lựa chọn nào!"; 
+                    
+            } 
+            // Câu 3
+            if(document.getElementById('q3p0').checked) { 
+                document.getElementById("disp3").innerHTML 
+                    = "Câu 3: " + document.getElementById("q3p0").value 
+                    + " điểm"; 
+                    var cau3 = document.getElementById("q3p0").value;
+                    var integer3 = parseInt(cau3, 10);
+                    
+            } 
+            else if(document.getElementById('q3p1').checked) { 
+                document.getElementById("disp3").innerHTML 
+                    = "Câu 3: " + document.getElementById("q3p1").value 
+                    + " điểm";   
+                    var cau3 = document.getElementById("q3p1").value;
+                    var integer3 = parseInt(cau3, 10);
+                    
+            } 
+            else if(document.getElementById('q3p2').checked) { 
+                document.getElementById("disp3").innerHTML 
+                    = "Câu 3: " + document.getElementById("q3p2").value 
+                    + " điểm";   
+                    var cau3 = document.getElementById("q3p2").value;
+                    var integer3 = parseInt(cau3, 10);
+                    
+            } 
+            else if(document.getElementById('q3p3').checked) { 
+                document.getElementById("disp3").innerHTML 
+                    = "Câu 3: " + document.getElementById("q3p3").value 
+                    + " điểm";   
+                    var cau3 = document.getElementById("q3p3").value;
+                    var integer3 = parseInt(cau3, 10);
+                    
+            } 
+            else if(document.getElementById('q3p4').checked) { 
+                document.getElementById("disp3").innerHTML 
+                    = "Câu 3: " + document.getElementById("q3p4").value 
+                    + " điểm";   
+                    var cau3 = document.getElementById("q3p4").value;
+                    var integer3 = parseInt(cau3, 10);
+                    
+            } 
+            else { 
+                document.getElementById("disp3").innerHTML 
+                    = "Câu 3: Bạn chưa đánh dấu lựa chọn nào!"; 
+                    
+            } 
+            // Câu 4
+            if(document.getElementById('q4p0').checked) { 
+                document.getElementById("disp4").innerHTML 
+                    = "Câu 4: " + document.getElementById("q4p0").value 
+                    + " điểm"; 
+                    var cau4 = document.getElementById("q4p0").value;
+                    var integer4 = parseInt(cau4, 10);
+                    
+            } 
+            else if(document.getElementById('q4p1').checked) { 
+                document.getElementById("disp4").innerHTML 
+                    = "Câu 4: " + document.getElementById("q4p1").value 
+                    + " điểm";   
+                    var cau4 = document.getElementById("q4p1").value;
+                    var integer4 = parseInt(cau4, 10);
+                    
+            } 
+            else if(document.getElementById('q4p2').checked) { 
+                document.getElementById("disp4").innerHTML 
+                    = "Câu 4: " + document.getElementById("q4p2").value 
+                    + " điểm";   
+                    var cau4 = document.getElementById("q4p2").value;
+                    var integer4 = parseInt(cau4, 10);
+                    
+            } 
+            else if(document.getElementById('q4p3').checked) { 
+                document.getElementById("disp4").innerHTML 
+                    = "Câu 4: " + document.getElementById("q4p3").value 
+                    + " điểm";   
+                    var cau4 = document.getElementById("q4p3").value;
+                    var integer4 = parseInt(cau4, 10);
+                    
+            } 
+            else if(document.getElementById('q4p4').checked) { 
+                document.getElementById("disp4").innerHTML 
+                    = "Câu 4: " + document.getElementById("q4p4").value 
+                    + " điểm";   
+                    var cau4 = document.getElementById("q4p4").value;
+                    var integer4 = parseInt(cau4, 10);
+                    
+            } 
+            else { 
+                document.getElementById("disp4").innerHTML 
+                    = "Câu 4: Bạn chưa đánh dấu lựa chọn nào!"; 
+                    
+            } 
+            // Câu 5
+            if(document.getElementById('q5p0').checked) { 
+                document.getElementById("disp5").innerHTML 
+                    = "Câu 5: " + document.getElementById("q5p0").value 
+                    + " điểm"; 
+                    var cau5 = document.getElementById("q5p0").value;
+                    var integer5 = parseInt(cau5, 10);
+                    
+            } 
+            else if(document.getElementById('q5p1').checked) { 
+                document.getElementById("disp5").innerHTML 
+                    = "Câu 5: " + document.getElementById("q5p1").value 
+                    + " điểm";   
+                    var cau5 = document.getElementById("q5p1").value;
+                    var integer5 = parseInt(cau5, 10);
+                    
+            } 
+            else if(document.getElementById('q5p2').checked) { 
+                document.getElementById("disp5").innerHTML 
+                    = "Câu 5: " + document.getElementById("q5p2").value 
+                    + " điểm";   
+                    var cau5 = document.getElementById("q5p2").value;
+                    var integer5 = parseInt(cau5, 10);
+                    
+            } 
+            else if(document.getElementById('q5p3').checked) { 
+                document.getElementById("disp5").innerHTML 
+                    = "Câu 5: " + document.getElementById("q5p3").value 
+                    + " điểm";   
+                    var cau5 = document.getElementById("q5p3").value;
+                    var integer5 = parseInt(cau5, 10);
+                    
+            } 
+            else if(document.getElementById('q5p4').checked) { 
+                document.getElementById("disp5").innerHTML 
+                    = "Câu 5: " + document.getElementById("q5p4").value 
+                    + " điểm";   
+                    var cau5 = document.getElementById("q5p4").value;
+                    var integer5 = parseInt(cau5, 10);
+                    
+            } 
+            else { 
+                document.getElementById("disp5").innerHTML 
+                    = "Câu 5: Bạn chưa đánh dấu lựa chọn nào!"; 
+                    
+            } 
+            // Câu 6
+            if(document.getElementById('q6p0').checked) { 
+                document.getElementById("disp6").innerHTML 
+                    = "Câu 6: " + document.getElementById("q6p0").value 
+                    + " điểm"; 
+                    var cau6 = document.getElementById("q6p0").value;
+                    var integer6 = parseInt(cau6, 10);
+                    
+            } 
+            else if(document.getElementById('q6p1').checked) { 
+                document.getElementById("disp6").innerHTML 
+                    = "Câu 6: " + document.getElementById("q6p1").value 
+                    + " điểm";   
+                    var cau6 = document.getElementById("q6p1").value;
+                    var integer6 = parseInt(cau6, 10);
+                    
+            } 
+            else if(document.getElementById('q6p2').checked) { 
+                document.getElementById("disp6").innerHTML 
+                    = "Câu 6: " + document.getElementById("q6p2").value 
+                    + " điểm";   
+                    var cau6 = document.getElementById("q6p2").value;
+                    var integer6 = parseInt(cau6, 10);
+                    
+            } 
+            else if(document.getElementById('q6p3').checked) { 
+                document.getElementById("disp6").innerHTML 
+                    = "Câu 6: " + document.getElementById("q6p3").value 
+                    + " điểm";   
+                    var cau6 = document.getElementById("q6p3").value;
+                    var integer6 = parseInt(cau6, 10);
+                    
+            } 
+            else if(document.getElementById('q6p4').checked) { 
+                document.getElementById("disp6").innerHTML 
+                    = "Câu 6: " + document.getElementById("q6p4").value 
+                    + " điểm";   
+                    var cau6 = document.getElementById("q6p4").value;
+                    var integer6 = parseInt(cau6, 10);
+                    
+            } 
+            else { 
+                document.getElementById("disp6").innerHTML 
+                    = "Câu 6: Bạn chưa đánh dấu lựa chọn nào!"; 
+                     
+            } 
+            var tongdiem = integer1 + integer2 + integer3 + integer4 + integer5;
+            var diemcau6 = integer6;
+            if(isNaN(NaN) == true){
+                      document.getElementById("dispTotal").innerHTML 
+                    = 'Tổng điểm (1 - 5): Chưa thể tính'; 
+                    Swal.fire({
+  icon: 'question',
+  title: 'Ơ này, khoan đã...',
+  text: 'Bạn có đánh dấu vào ô nào đâu hoặc đã đánh dấu đầy đủ vào các ô đâu mà chúng tôi có thể đưa ra lời khuyên cơ chứ ??!!',
+  footer: '<a href="#" onclick="swal.closeModal(); window.scrollTo(0,document.body.scrollHeight); return false;">Tại sao lại có kết quả này?</a>'
+})
+                    }
+                     if (isNaN(tongdiem) == false) {
+            document.getElementById("dispTotal").innerHTML 
+                    = 'Tổng điểm (1 - 5): ' + tongdiem; 
+                    }
+     if(tongdiem <= 5) {       
+Swal.fire({
+  icon: 'success',
+  title: 'Thật tuyệt vời!',
+  text: 'Bạn không có biểu hiện của bệnh, khả năng thích nghi của cơ thể và tinh thần tốt.',
+  footer: '<a href="#" onclick="swal.closeModal(); window.scrollTo(0,document.body.scrollHeight); return false;">Tại sao lại có kết quả này?</a>'
+})
+}  
+if(tongdiem >= 6) {       
+Swal.fire({
+  title: 'Có gì đó không ổn ở đây...',
+  text: "Tâm trạng của bạn có một chút căng thẳng, nên tìm người nhà hoặc bạn bè để bày tỏ tâm trạng của mình.",
+  icon: 'warning',
+  footer: '<a href="#" onclick="swal.closeModal(); window.scrollTo(0,document.body.scrollHeight); return false;">Tại sao lại có kết quả này?</a>'
+})
+}  
+if(tongdiem >= 10) {       
+Swal.fire({
+  title: 'Có gì đó không ổn ở đây...',
+  text: "Tâm trạng của bạn căng thẳng ở mức độ trung bình, nên tư vấn về tâm lý hoặc tư vấn chuyên khoa tâm thần.",
+  icon: 'warning',
+  footer: '<a href="#" onclick="swal.closeModal(); window.scrollTo(0,document.body.scrollHeight); return false;">Tại sao lại có kết quả này?</a>'
+})
+}  
+     if(tongdiem >= 15){
+      Swal.fire({
+  icon: 'error',
+  title: 'Ồ, không ổn rồi!',
+  text: 'Bạn có biểu hiện của bệnh về tâm lý, tâm thần. Tâm trạng căng thẳng ở mức độ nghiêm trọng, cần được quan tâm nhiều hơn, nên tư vấn hoặc đi khám chuyên khoa tâm thần.',
+  footer: '<a href="#" onclick="swal.closeModal(); window.scrollTo(0,document.body.scrollHeight); return false;">Tại sao lại có kết quả này?</a>'
+})
+}
+if(diemcau6 >= 2){
+      Swal.fire({
+  icon: 'error',
+  title: 'Ồ, không ổn rồi!',
+  html: 'Bạn nên liên hệ bác sĩ chuyên khoa tâm thần hoặc gọi ngay đến đường dây 24 giờ: <a href="tel:+84367862328">0367862328</a> để được an ủi động viên và giúp đỡ',
+  footer: '<a href="#" onclick="swal.closeModal(); window.scrollTo(0,document.body.scrollHeight); return false;">Tại sao lại có kết quả này?</a>'
+})
+}
+ document.getElementById("dispTitle2").innerHTML 
+                    = "Thang điểm tự đánh giá:";  
+        } 
+    </script>
+
+
+
+
+<footer class="footer">
+<hr>
+    <div class="container" style="
+    margin-right: 15px;
+    margin-left: 0px;
+    padding-left: 0px;
+">
+    <div class="column">
+        <p>&copy; Phòng mạch An Sinh</p>
+    </div>
+
+    <div class="column">
+        <p id="demo2"></p>
+    </div>
+
+     <div class="column">
+        <p> Được thiết kế và phát triển với một <i class="fas fa-heart"></i> đặc biệt bởi <a href="https://facebook.com/tunnaduong/">Dương Tùng Anh</a></p>
+</div>
+<style>
+.column {    
+    display: inline-block;
+}
+</style>
+</div>
+<script>
+
+function myFunction() {
+  var d = new Date();
+  var n = d.getFullYear();
+  document.getElementById("demo").innerHTML = n + ".";
+  document.getElementById("demo2").innerHTML = n + ".";
+}
+myFunction()
+</script>
+      
+      </footer>
+    </div>
+</body>

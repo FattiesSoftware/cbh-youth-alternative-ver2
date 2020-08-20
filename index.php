@@ -150,7 +150,7 @@ require "include/header.php";
     padding-top: 0px;
     padding-right: 0px;
 ">
-<div style="float: left;margin-top: 3px;margin-left: 5px;">
+<div style="float: left;margin-top: 4px;margin-left: 5px;">
 	<b>
 <i class="fas fa-volume-up"></i> Thông báo |</b>
 

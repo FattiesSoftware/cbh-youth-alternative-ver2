@@ -1,3 +1,11 @@
+<!-- Project name: CBH Youth Online (Đoàn trường THPT Chuyên Biên Hoà Online)
+	 Project link: https://youth.fattiesoftware.com/
+ 	 Created by Fatties Software 2020
+ 	 Team members:
+ 	 - Duong Tung Anh (CEO/Founder - C4K60 Bien Hoa Gifted High School) | https://fb.me/tunnaduong
+	 - Hoang Phat (Co-Founder/Lead Developer - A1K60 Bien Hoa Gifted High School) | https://fb.me/hoangphathandsome
+	 All rights reserved 
+-->
 <?php
 // We need to use sessions, so you should always start sessions using the below code.
 session_start();
@@ -19,16 +27,7 @@ if (!isset($_SESSION['loggedin'])) {
 	$OUT = 'block';
 
 // Create connection
-
-    //$servername = 'sql102.epizy.com';
-    //$username = 'epiz_25309528';
-    //$password = 'FwYnaoyKsmQeVo';
-    //$dbname = 'epiz_25309528_fattiesSoftware';
-	$servername = 'localhost';
-    $username = 'root';
-    $password = '';
-    $dbname = 'members';
-    $conn = new mysqli($servername, $username, $password, $dbname);
+require('require/serverconnect.php');
     mysqli_set_charset($conn, 'UTF8');
 // Check connection
 
@@ -278,20 +277,203 @@ $contents = 'Bây giờ là: ' . rebuild_date('H:i l, d/m/Y' ) . '<br />';
 
 
 ?>
+<style>
+	#moinhat {
+  padding: 10px;
+  border-radius: 7px;
+border:1px solid #d7edfc;
+  background-color: #f0f7fc;
+}
+@media only screen and (max-width: 590px) {
+.moinhat {
+	display: none;
+}
+}
+</style>
+	<style type="text/css">
+		/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 14px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+	</style>
+<center><a href="post.php" style="float: right;"><button type="button" class="btn btn-success"><i class="fas fa-edit"></i> Đăng bài viết mới</button></a><br/><br/></center>
+		<ul class="breadcrumb" style="margin-bottom: 0px;">
+  <li><a href="/">Trang chủ</a></li>
+  <li>Diễn đàn</li>
+</ul>
 	<center>
-		<a href="post.php" style="    float: right;"><button type="button" class="btn btn-success"><i class="fas fa-edit"></i> Đăng bài viết mới</button></a><br/><br/>
-	<?php echo '<table class="table table-hover" id="myTable">';?>
-	<thead class="thead-dark">
-			<tr> 
-					<td width="40px;"><span>ID</span> </td>
-					<td width="400px;" style="text-align: left" > Tên bài viết </td>
-					<td width="80px;" style="text-align: center" > Lượt xem </td>
-					<td width="80px;" style="text-align: center" > Người viết </td>
-					<td width="80px;" style="text-align: center" > Ngày viết </td>
-			</tr>
-	</thead>
+		<?php
+require('require/serverconnect.php');
+  if ($conn->connect_error) {
+      die("kết nối thất bại " . $conn->connect_error);
+    } 
+  $sql = "SELECT * FROM topics WHERE category='hoctap'";
+  $result = $conn->query($sql);
+ $rows = mysqli_num_rows($result);
+  $sql2 = "SELECT * FROM topics WHERE category='giaitri'";
+  $result2 = $conn->query($sql2);
+ $rows2 = mysqli_num_rows($result2);
+ $sql3 = "SELECT * FROM topics WHERE category='timdo'";
+  $result3 = $conn->query($sql3);
+ $rows3 = mysqli_num_rows($result3);
+  $totalhoctap = $rows;
+$totalgiaitri = $rows2;
+$totaltimdo = $rows3;
+//HỌC TẬP
+ $sql4 = "SELECT * FROM topics WHERE category='hoctap' ORDER BY topic_id DESC LIMIT 1;";
+  $result4 = $conn->query($sql4) or die($conn->error);
+    while($rowa = $result4->fetch_assoc()) {
+      $latest_name = $rowa['topic_name'];
+      $latest_date = $rowa['date'];
+      $post_id = $rowa['topic_id'];
+      $post_author = $rowa['topic_creator'];
+    }
+   $sql5 = "SELECT * FROM accounts WHERE username='$post_author';";
+    $result5 = $conn->query($sql5) or die($conn->error);
+    while($rowa1 = $result5->fetch_assoc()) {
+       $author_id = $rowa1['id'];
+       $veri = $rowa1['verified'];  
+    }
+//GIẢI TRÍ
+     $sql6 = "SELECT * FROM topics WHERE category='giaitri' ORDER BY topic_id DESC LIMIT 1;";
+  $result6 = $conn->query($sql6) or die($conn->error);
+    while($rowa2 = $result6->fetch_assoc()) {
+      $latest_name2 = $rowa2['topic_name'];
+      $latest_date2 = $rowa2['date'];
+      $post_id2 = $rowa2['topic_id'];
+      $post_author2 = $rowa2['topic_creator'];
+    
+   $sql7 = "SELECT * FROM accounts WHERE username='$post_author2';";
+    $result7 = $conn->query($sql7) or die($conn->error);
+    while($rowa3 = $result7->fetch_assoc()) {
+       $author_id2 = $rowa3['id'];
+       $veri1 = $rowa3['verified'];  
+    }
+    }
+//TÌM ĐỒ
+    $sql8 = "SELECT * FROM topics WHERE category='timdo' ORDER BY topic_id DESC LIMIT 1;";
+  $result8 = $conn->query($sql8) or die($conn->error);
+    while($rowa3 = $result8->fetch_assoc()) {
+      $latest_name3 = $rowa3['topic_name'];
+      $latest_date3 = $rowa3['date'];
+      $post_id3 = $rowa3['topic_id'];
+      $post_author3 = $rowa3['topic_creator'];
+    }
+   $sql9 = "SELECT * FROM accounts WHERE username='$post_author3';";
+    $result9 = $conn->query($sql9) or die($conn->error);
+    while($rowa4 = $result9->fetch_assoc()) {
+       $author_id3 = $rowa4['id'];
+       $veri2 = $rowa4['verified'];  
+    }
+    //Tắt thông báo lỗi php
+error_reporting(0);
+@ini_set('display_errors', 0);
+    ?>
+		<table class="table table-hover" style="background-color: white;">
+  <tbody>
+    <tr>
+      <td width="20" style="padding-top: 13px;"><i class="fas fa-comments" style="font-size: 24px;margin-top: 8px;color: #337ab7;"></i></td>
+      <td style="padding-top: 13px;"><b><a href="hoctap">Học tập</a></b><br><p style="color: gray;display: inline;">Bài viết:</p> <?php echo $totalhoctap ?> <p style="color: gray;display: inline;">Bình luận:</p> 0</td>
+      <td class="moinhat" width="300"><div id="moinhat" style="height: 55px;padding-top: 7px;">
+  <p style="margin-bottom: 0px; font-size: 12px;display: inline;">Mới nhất: <a id="isValid12" href="hoctap/topic.php?id=<?php echo $post_id?>"></a><br><a href="/profile.php?id=<?php echo $author_id?>"><?php echo $post_author?> <i id='tunganh'  data-toggle='tooltip' title='Tài khoản đã xác minh' style='color:#07f;font-size:11px;display:none' class='fas fa-check-circle'></i></a>, <p id="isValid1" style="color: gray;display: inline; font-size: 12px">
+
+<script>
+  yourString = '<?php echo $latest_name?>'
+  var result = yourString.substring(0, 33) + '...';
+  document.getElementById("isValid12").innerHTML = result;
+	moment.locale('vi');
+	document.getElementById("isValid1").innerHTML = moment("<?php echo $latest_date?>", "YYYY-MM-DD h:m:s").fromNow();
+  var veri = '<?php echo $veri ?>';
+            if (veri == 'yes'){
+              document.getElementById('tunganh').style.display = 'inline';
+            }else {
+              document.getElementById("tunganh").style.display = "none";
+            }
+</script></p></p></div></td>
+    </tr>
+    <tr>
+      <td style="padding-top: 13px;"><i class="fas fa-comments" style="font-size: 24px;margin-top: 8px;color: #337ab7;"></i></td>
+      <td style="padding-top: 13px;"><b><a href="giaitri">Giải trí</a></b><br><p style="color: gray;display: inline;">Bài viết:</p> <?php echo $totalgiaitri ?> <p style="color: gray;display: inline;">Bình luận:</p> 0</td>
+      <td class="moinhat"><div id="moinhat" style="height: 55px;padding-top: 7px;">
+  <p style="margin-bottom: 0px; font-size: 12px;display: inline;">Mới nhất: <a id="isValid21" href="hoctap/topic.php?id=<?php echo $post_id2?>"></a><br><a href="/profile.php?id=<?php echo $author_id2?>"><?php echo $post_author2?> <i id='tunganh2'  data-toggle='tooltip' title='Tài khoản đã xác minh' style='color:#07f;font-size:11px;display:none;display:inline' class='fas fa-check-circle'></i></a></a>, <p id="isValid2" style="color: gray;display: inline; font-size: 12px">
+<script>
+  yourString2 = '<?php echo $latest_name2?>'
+  var result2 = yourString2.substring(0, 33) + '...';
+  document.getElementById("isValid21").innerHTML = result2;
+  moment.locale('vi');
+  document.getElementById("isValid2").innerHTML = moment("<?php echo $latest_date2?>", "YYYY-MM-DD h:m:s").fromNow();
+  if (document.getElementById("isValid2").innerHTML == 'Invalid date') {
+    document.getElementById("isValid2").innerHTML = 'Không có bài viết nào'
+  }
+   var veri2 = '<?php echo $veri1 ?>';
+            if (veri2 == 'yes'){
+              document.getElementById('tunganh2').style.display = 'inline';
+            }else {
+              document.getElementById("tunganh2").style.display = "none";
+            }
+</script></p></p>
 
 
+
+</div>
+
+</td>
+    </tr>
+    <tr>
+
+ <td style="padding-top: 13px;"><i class="fas fa-comments" style="font-size: 24px;margin-top: 8px;color: #337ab7;"></i></td>
+      <td style="padding-top: 13px;"><b><a href="timdo">Tìm đồ thất lạc</a></b><br><p style="color: gray;display: inline;">Bài viết:</p> <?php echo $totaltimdo ?> <p style="color: gray;display: inline;">Bình luận:</p> 0</td>
+
+      <td class="moinhat"><div id="moinhat" style="height: 55px;padding-top: 7px;">
+  <p style="margin-bottom: 0px; font-size: 12px;display: inline;">Mới nhất: <a id="isValid31" href="hoctap/topic.php?id=<?php echo $post_id3?>"></a><br><a href="http://localhost/profile.php?id=<?php echo $author_id3?>"><?php echo $post_author3?> <i id='tunganh3'  data-toggle='tooltip' title='Tài khoản đã xác minh' style='color:#07f;font-size:11px;display:none;display:inline' class='fas fa-check-circle'></i></a>, <p id="isValid3" style="color: gray;display: inline; font-size: 12px">
+<?php echo $latest_name3 ?>
+<script>
+	yourString3 = '<?php echo $latest_name3 ?>'
+  var result3 = yourString3.substring(0, 33) + '...';
+  document.getElementById("isValid31").innerHTML = result3;
+  moment.locale('vi');
+  document.getElementById("isValid3").innerHTML = moment("<?php echo $latest_date3?>", "YYYY-MM-DD h:m:s").fromNow();
+  if (document.getElementById("isValid3").innerHTML == 'Invalid date') {
+    document.getElementById("isValid3").innerHTML = 'Không có bài viết nào'
+  }
+   var veri3 = '<?php echo $veri2 ?>';
+            if (veri3 == 'yes'){
+              document.getElementById('tunganh3').style.display = 'inline';
+            }else {
+              document.getElementById("tunganh3").style.display = "none";
+            }
+</script></p></p></div></td>
+    </tr>
+  </tbody>
+</table>
 	</center>
 <style>
 @media only screen and (max-width: 790px) {
@@ -304,78 +486,7 @@ $contents = 'Bây giờ là: ' . rebuild_date('H:i l, d/m/Y' ) . '<br />';
 }
 }
 </style>
-	</body>
-</html>
-
-<?php
-$servername = 'localhost';
-    $username = 'root';
-    $password = '';
-    $dbname = 'members';
-	$conn = new mysqli($servername, $username, $password, $dbname);
-    mysqli_set_charset($conn, 'UTF8');
-	if ($conn->connect_error) {
-			die("kết nối thất bại " . $conn->connect_error);
-		} 
-	$sql = "SELECT * FROM topics";
-	$result = $conn->query($sql);
-	if(!@$_GET['date']){
-	if ($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-			$id=$row['topic_id'];
-			echo "<tr>";
-			echo "<td>".$row['topic_id']."</td>";
-			echo "<td style='text-align:left;'><a href='topic.php?id=$id'>".$row['topic_name']."</a></td>";
-			echo "<td style='text-align:center;'>".$row['view']."</td>";
-			$query_u = "SELECT id FROM accounts WHERE username='".$row['topic_creator']."'";
-			$results_u = mysqli_query($conn, $query_u);
-			$i=0;
-while($row_u = $results_u->fetch_assoc()) {
-			if($i==0) $user_id=1000;
-			$user_id = $row_u['id'];
-			echo "<td style='text-align:center;'><a href='/profile.php?id=$user_id'>".$row['topic_creator']."</a></td>";
-			$get_date=$row['date'];
-			echo "<td style='text-align:center;'><a href='index.php?date=$get_date'>".$row['date']."</a></td>";
-			echo "</tr>";
-}
-    }
-}else {
-		echo "Không có bài viết nào";
-	}
-}
-	
-	
-	if(@$_GET['date']){
-		
-		$query_d = "SELECT * FROM topics WHERE date='".$_GET['date']."'";
-		$results_d = mysqli_query($db, $query_d);mysqli_set_charset($db,"utf8");
-		
-		while($row_d=mysqli_fetch_assoc($results_d)){
-			
-			echo "<tr>";
-			echo "<td>".$row_d['topic_id']."</td>";
-			$id=$row_d['topic_id'];
-			echo "<td style='text-align:left;'><a href='topic.php?id=$id'>".$row_d['topic_name']."</a></td>";
-			echo "<td  style='text-align:center;'>".$row_d['view']."</td>";
-			$query_u = "SELECT * FROM users WHERE username='".$row_d['topic_creator']."'";
-			$results_u = mysqli_query($db, $query_u);
-			$i=0;
-			while($row_u=mysqli_fetch_assoc($results_u)){
-				$user_id=$row_u['id'];
-				$i=$i+1;
-			}
-			if($i==0) $user_id=1000;
-			echo "<td  style='text-align:center;'><a href='profile.php?id=$user_id'>".$row_d['topic_creator']."</a></td>";
-			$get_date=$row_d['date'];
-			echo "<td style='text-align:center;'><a href='index.php?date=$get_date'>".$row_d['date']."</a></td>";
-			echo "</tr>";
-			
-
-		}
-	}
-echo "</table>";
-
-?>
+<!--Thuật toán sắp xếp danh sách bài viết theo thứ tự giảm dần qua id bài viết-->
 <script>
 function sortTable() {
   var table, rows, switching, i, x, y, shouldSwitch;
@@ -413,12 +524,11 @@ function sortTable() {
 }
 sortTable()
 </script>
-</p>
+
 </center>
 <?php
 	require "include/footer.php";
 	?>
 </div>
 </body>
-
-	
+</html>
